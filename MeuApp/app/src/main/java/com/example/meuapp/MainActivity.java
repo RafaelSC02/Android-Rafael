@@ -10,11 +10,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+
+import Model.AppDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
     Button btnEntrar;
 
+    static AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +36,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "Contatos").build();
     }
 }
